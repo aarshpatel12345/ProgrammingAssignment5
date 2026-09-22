@@ -10,34 +10,37 @@ public:
     }
 
     Array(const Array &array) {
-        value = array.value;
+        value = new int(*array.value);
         std::cout << "Copied value: " << *value << std::endl;
     }
 
-    void update(int newValue) {
+    void setValue(int newValue) {
         *value = newValue;
     }
 
-    void display(std::string text) {
+    void getValue(std::string text) {
         std::cout << text << *value << std::endl;
     }
 
-    ~Array() = default;
+    ~Array() {
+        delete value;
+    }
 };
 
 int main() {
-    int value, updateValue;
+    int value, newValue;
     std::cin >> value;
-    std::cin >> updateValue;
+    std::cin >> newValue;
 
     Array arr1(value);
     Array arr2 = arr1;
 
-    std::cout << "\nAfter modifying copied object: \n";
-    arr2.update(updateValue);
+    std::cout << "\nAfter modifying copied object:\n";
 
-    arr1.display("Original value: ");
-    arr2.display("Copied value: ");
+    arr2.setValue(newValue);
+
+    arr1.getValue("Original value: ");
+    arr2.getValue("Copied value: ");
 
     return 0;
 }
